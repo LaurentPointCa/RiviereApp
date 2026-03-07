@@ -1,5 +1,41 @@
 # Rivière
 
+Application iOS pour surveiller les prévisions de la rivière à la station CEHQ 043301, avec un graphique de prévisions, un tableau de données, le niveau d'eau actuel et un widget sur l'écran d'accueil.
+
+## Fonctionnalités
+
+- **Graphique de prévisions** – Affiche le graphique de prévisions; pincez pour zoomer, glissez pour déplacer, double-touchez pour réinitialiser.
+- **Mode paysage** – En mode paysage, le graphique s'affiche en plein écran pour une meilleure lisibilité.
+- **Niveau d'eau actuel** – Niveau en temps réel récupéré depuis la station CEHQ 043301, affiché sous le graphique.
+- **Zone de danger** – Le seuil de danger de 22,5 m est indiqué sous le tableau de prévisions.
+- **Tableau de prévisions** – Données JSON affichées en tableau (jour, date, débit m³/s, niveau m).
+- **Bouton CEHQ** – Ouvre la station CEHQ 043301 dans Safari.
+- **Bouton Carillon** – Ouvre la page de la jauge de Carillon sur rivièredesoutaouais.ca.
+- **Widget** – Affiche le niveau d'eau du 5e jour de prévision sur l'écran d'accueil.
+- **Actualisation en arrière-plan** – Actualisation horaire pour maintenir le widget à jour.
+
+## Exigences
+
+- Xcode 15+
+- iOS 17+
+
+## Configuration
+
+1. Ouvrez `Riviere.xcodeproj` dans Xcode.
+2. Sélectionnez votre équipe de développement sous Signing & Capabilities pour la cible de l'application et pour **RiviereWidgetExtension**.
+3. Assurez-vous que le App Group `group.ca.point.riviere` existe dans votre compte Apple Developer (ou créez-le) et est activé pour les deux cibles.
+4. Compilez et exécutez sur un appareil ou un simulateur.
+
+## Sources de données
+
+- Graphique de prévisions : [forecast.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.png)
+- JSON de prévisions : [forecast.json](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.json)
+- Niveau actuel : [Station CEHQ 043301](https://www.cehq.gouv.qc.ca/suivihydro/fichier_donnees.asp?NoStation=043301)
+
+---
+
+# Rivière (English)
+
 iOS app for monitoring river forecast data for CEHQ station 043301, with a forecast chart, data table, current water level, and a home screen widget.
 
 ## Features
