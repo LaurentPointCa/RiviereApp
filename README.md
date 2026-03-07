@@ -1,6 +1,6 @@
 # Rivière
 
-Application iOS pour surveiller les prévisions de la rivière à la station CEHQ 043301, avec un graphique de prévisions, un tableau de données, le niveau d'eau actuel et un widget sur l'écran d'accueil.
+Application iOS pour surveiller les prévisions de la rivière à la station CEHQ 043301, avec un graphique de prévisions, un tableau de données et le niveau d'eau actuel.
 
 ## Fonctionnalités
 
@@ -34,7 +34,7 @@ Application iOS pour surveiller les prévisions de la rivière à la station CEH
 
 # Rivière (English)
 
-iOS app for monitoring river forecast data for CEHQ station 043301, with a forecast chart, data table, current water level, and a home screen widget.
+iOS app for monitoring river forecast data for CEHQ station 043301, with a forecast chart, data table, and current water level.
 
 ## Features
 
