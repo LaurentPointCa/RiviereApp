@@ -39,9 +39,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
         do {
             try BGTaskScheduler.shared.submit(request)
-            print("Scheduled background refresh in 1 hour")
         } catch {
-            print("Could not schedule app refresh: \(error)")
+            // Silently fail - not critical
         }
     }
 
@@ -51,9 +50,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         let taskOperation = Task {
             do {
                 _ = try await ForecastService.shared.fetchForecast()
-                print("Background refresh completed")
             } catch {
-                print("Background refresh failed: \(error)")
+                // Background refresh failed, will retry later
             }
         }
 
