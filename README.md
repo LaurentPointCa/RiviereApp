@@ -11,8 +11,6 @@ Application iOS pour surveiller les prévisions de la rivière à la station CEH
 - **Tableau de prévisions** – Données JSON affichées en tableau (jour, date, débit m³/s, niveau m).
 - **Bouton CEHQ** – Ouvre la station CEHQ 043301 dans Safari.
 - **Bouton Carillon** – Ouvre la page de la jauge de Carillon sur rivièredesoutaouais.ca.
-- **Widget** – Affiche le niveau d'eau du 5e jour de prévision sur l'écran d'accueil.
-- **Actualisation en arrière-plan** – Actualisation horaire pour maintenir le widget à jour.
 
 ## Exigences
 
@@ -47,8 +45,6 @@ iOS app for monitoring river forecast data for CEHQ station 043301, with a forec
 - **Forecast table** – JSON data shown in a table (day, date, flow m³/s, level m).
 - **CEHQ button** – Opens CEHQ station 043301 in Safari.
 - **Carillon button** – Opens the Carillon gauge page on rivièredesoutaouais.ca.
-- **Widget** – Shows the 5th forecast day water level on the home screen.
-- **Background refresh** – Hourly refresh to keep the widget up to date.
 
 ## Requirements
 
