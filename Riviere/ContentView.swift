@@ -19,66 +19,123 @@ struct ContentView: View {
                     .ignoresSafeArea()
             } else {
                 // Portrait: Normal view
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 0) {
-                        ZoomableImageView(
-                            imageURL: ForecastService.imageURL,
-                            maxWidth: UIScreen.main.bounds.width
-                        )
+                VStack(spacing: 0) {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 0) {
+                            // Label for the 30-day forecast graph
+                            Text("Données 30 derniers jours")
+                                .font(.headline)
+                                .padding(.horizontal)
+                                .padding(.top, 8)
+                            
+                            AsyncImage(url: ForecastService.image30DayURL) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: UIScreen.main.bounds.width)
+                                case .failure:
+                                    Image(systemName: "photo")
+                                        .frame(maxWidth: UIScreen.main.bounds.width, minHeight: 200)
+                                        .foregroundStyle(.secondary)
+                                case .empty:
+                                    ProgressView()
+                                        .frame(maxWidth: UIScreen.main.bounds.width, minHeight: 200)
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
 
-                        // Current level display
-                        HStack {
-                            Text("Niveau actuel: ")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                            if let currentLevel = viewModel.currentLevel {
-                                Text(String(format: "%.2f m", currentLevel))
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                            } else {
-                                Text("non-disponible")
+                            // Current level display
+                            HStack {
+                                Text("Niveau actuel: ")
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
-                                    .italic()
+                                if let currentLevel = viewModel.currentLevel {
+                                    Text(String(format: "%.2f m", currentLevel))
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                } else {
+                                    Text("non-disponible")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                        .italic()
+                                }
                             }
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 8)
+                            .padding(.horizontal)
+                            .padding(.top, 8)
 
-                        if viewModel.isLoading, viewModel.forecast.isEmpty {
-                            HStack {
-                                Spacer()
-                                ProgressView()
-                                Spacer()
-                            }
-                            .padding()
-                        } else if let error = viewModel.error {
-                            Text("Erreur: \(error)")
-                                .foregroundStyle(.red)
+                            if viewModel.isLoading, viewModel.forecast.isEmpty {
+                                HStack {
+                                    Spacer()
+                                    ProgressView()
+                                    Spacer()
+                                }
                                 .padding()
-                        } else {
-                            forecastTable
+                            } else if let error = viewModel.error {
+                                Text("Erreur: \(error)")
+                                    .foregroundStyle(.red)
+                                    .padding()
+                            } else {
+                                forecastTable
+                                
+                                // Danger zone warning
+                                Text("Zone de danger: 22.5 m")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                                    .padding(.horizontal)
+                                    .padding(.top, 4)
+                                
+                                // 1 year forecast image
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Données 1 an")
+                                        .font(.headline)
+                                        .padding(.horizontal)
+                                        .padding(.top, 16)
+                                    
+                                    AsyncImage(url: ForecastService.imageURL) { phase in
+                                        switch phase {
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(maxWidth: UIScreen.main.bounds.width)
+                                        case .failure:
+                                            Image(systemName: "photo")
+                                                .frame(maxWidth: UIScreen.main.bounds.width, minHeight: 200)
+                                                .foregroundStyle(.secondary)
+                                        case .empty:
+                                            ProgressView()
+                                                .frame(maxWidth: UIScreen.main.bounds.width, minHeight: 200)
+                                        @unknown default:
+                                            EmptyView()
+                                        }
+                                    }
+                                }
+                            }
                             
-                            // Danger zone warning
-                            Text("Zone de danger: 22.5 m")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                                .padding(.horizontal)
-                                .padding(.top, 4)
+                            // Add space at bottom so content isn't hidden by buttons
+                            Color.clear
+                                .frame(height: 70)
                         }
-                        
-                        Spacer(minLength: 20)
-                        
-                        // Buttons at bottom
-                        HStack(spacing: 12) {
+                    }
+                    .refreshable {
+                        await viewModel.refresh()
+                    }
+                    
+                    // Buttons pinned at bottom
+                    VStack(spacing: 0) {
+                        Divider()
+                        HStack(spacing: 8) {
                             CEHQButton()
                             CarillonButton()
+                            CruesMTLButton()
                         }
-                        .padding()
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
+                        .background(Color(.systemBackground))
                     }
-                }
-                .refreshable {
-                    await viewModel.refresh()
                 }
             }
         }
@@ -152,10 +209,10 @@ struct CEHQButton: View {
 
     var body: some View {
         Button(action: openCEHQ) {
-            Text("CEHQ 043301")
-                .font(.headline)
+            Text("CEHQ")
+                .font(.subheadline)
                 .frame(maxWidth: .infinity)
-                .padding()
+                .padding(.vertical, 8)
         }
         .buttonStyle(.borderedProminent)
     }
@@ -171,14 +228,32 @@ struct CarillonButton: View {
     var body: some View {
         Button(action: openCarillon) {
             Text("Carillon")
-                .font(.headline)
+                .font(.subheadline)
                 .frame(maxWidth: .infinity)
-                .padding()
+                .padding(.vertical, 8)
         }
         .buttonStyle(.borderedProminent)
     }
 
     private func openCarillon() {
+        UIApplication.shared.open(url)
+    }
+}
+
+struct CruesMTLButton: View {
+    private let url = URL(string: "https://www.cruesgrandmontreal.ca/")!
+
+    var body: some View {
+        Button(action: openCruesMTL) {
+            Text("Crues MTL")
+                .font(.subheadline)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+        }
+        .buttonStyle(.borderedProminent)
+    }
+
+    private func openCruesMTL() {
         UIApplication.shared.open(url)
     }
 }
@@ -244,19 +319,43 @@ struct FullScreenZoomableImage: View {
                                 .onChanged { value in
                                     let delta = value / lastScale
                                     lastScale = value
-                                    scale = min(max(scale * delta, minScale), maxScale)
+                                    let newScale = scale * delta
+                                    scale = min(max(newScale, minScale), maxScale)
+                                    
+                                    // Reset offset if zooming out to 1.0
+                                    if scale <= 1.0 {
+                                        offset = .zero
+                                        lastOffset = .zero
+                                    }
                                 }
                                 .onEnded { _ in
                                     lastScale = 1.0
+                                    
+                                    // Constrain offset to prevent image from going off screen
+                                    if scale > 1.0 {
+                                        let maxOffset = (geometry.size.width * (scale - 1)) / 2
+                                        let maxOffsetY = (geometry.size.height * (scale - 1)) / 2
+                                        
+                                        offset.width = min(max(offset.width, -maxOffset), maxOffset)
+                                        offset.height = min(max(offset.height, -maxOffsetY), maxOffsetY)
+                                        lastOffset = offset
+                                    }
                                 }
                         )
                         .simultaneousGesture(
                             DragGesture()
                                 .onChanged { value in
                                     if scale > 1.0 {
+                                        let maxOffset = (geometry.size.width * (scale - 1)) / 2
+                                        let maxOffsetY = (geometry.size.height * (scale - 1)) / 2
+                                        
+                                        let newOffsetX = lastOffset.width + value.translation.width
+                                        let newOffsetY = lastOffset.height + value.translation.height
+                                        
+                                        // Constrain offset while dragging
                                         offset = CGSize(
-                                            width: lastOffset.width + value.translation.width,
-                                            height: lastOffset.height + value.translation.height
+                                            width: min(max(newOffsetX, -maxOffset), maxOffset),
+                                            height: min(max(newOffsetY, -maxOffsetY), maxOffsetY)
                                         )
                                     }
                                 }

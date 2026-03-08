@@ -4,13 +4,15 @@ Application iOS pour surveiller les prévisions de la rivière à la station CEH
 
 ## Fonctionnalités
 
-- **Graphique de prévisions** – Affiche le graphique de prévisions; pincez pour zoomer, glissez pour déplacer, double-touchez pour réinitialiser.
-- **Mode paysage** – En mode paysage, le graphique s'affiche en plein écran pour une meilleure lisibilité.
+- **Graphique 30 jours** – Affiche les données des 30 derniers jours en haut de l'écran.
+- **Graphique de prévisions (1 an)** – Affiche le graphique de prévisions annuel; pincez pour zoomer, glissez pour déplacer, double-touchez pour réinitialiser.
+- **Mode paysage** – En mode paysage, le graphique 1 an s'affiche en plein écran pour une meilleure lisibilité.
 - **Niveau d'eau actuel** – Niveau en temps réel récupéré depuis la station CEHQ 043301, affiché sous le graphique.
 - **Zone de danger** – Le seuil de danger de 22,5 m est indiqué sous le tableau de prévisions.
 - **Tableau de prévisions** – Données JSON affichées en tableau (jour, date, débit m³/s, niveau m).
 - **Bouton CEHQ** – Ouvre la station CEHQ 043301 dans Safari.
 - **Bouton Carillon** – Ouvre la page de la jauge de Carillon sur rivièredesoutaouais.ca.
+- **Bouton Crues MTL** – Ouvre le site Crues Grand Montréal dans Safari.
 
 ## Exigences
 
@@ -20,13 +22,13 @@ Application iOS pour surveiller les prévisions de la rivière à la station CEH
 ## Configuration
 
 1. Ouvrez `Riviere.xcodeproj` dans Xcode.
-2. Sélectionnez votre équipe de développement sous Signing & Capabilities pour la cible de l'application et pour **RiviereWidgetExtension**.
-3. Assurez-vous que le App Group `group.ca.point.riviere` existe dans votre compte Apple Developer (ou créez-le) et est activé pour les deux cibles.
-4. Compilez et exécutez sur un appareil ou un simulateur.
+2. Sélectionnez votre équipe de développement sous Signing & Capabilities.
+3. Compilez et exécutez sur un appareil ou un simulateur.
 
 ## Sources de données
 
-- Graphique de prévisions : [forecast.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.png)
+- Graphique 30 jours : [forecast_30d.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast_30d.png)
+- Graphique de prévisions (1 an) : [forecast.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.png)
 - JSON de prévisions : [forecast.json](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.json)
 - Niveau actuel : [Station CEHQ 043301](https://www.cehq.gouv.qc.ca/suivihydro/fichier_donnees.asp?NoStation=043301)
 
@@ -38,13 +40,15 @@ iOS app for monitoring river forecast data for CEHQ station 043301, with a forec
 
 ## Features
 
-- **Forecast chart** – Fetches and displays the forecast image; pinch to zoom, drag to pan, double-tap to reset.
-- **Landscape mode** – Rotating to landscape shows the chart full-screen for easier reading.
+- **30-day chart** – Displays the last 30 days of data at the top of the screen.
+- **Forecast chart (1 year)** – Displays the annual forecast image; pinch to zoom, drag to pan, double-tap to reset.
+- **Landscape mode** – Rotating to landscape shows the 1-year chart full-screen for easier reading.
 - **Current water level** – Live level fetched from CEHQ station 043301 and displayed below the chart.
 - **Danger zone** – The 22.5 m danger threshold is shown below the forecast table.
 - **Forecast table** – JSON data shown in a table (day, date, flow m³/s, level m).
 - **CEHQ button** – Opens CEHQ station 043301 in Safari.
 - **Carillon button** – Opens the Carillon gauge page on rivièredesoutaouais.ca.
+- **Crues MTL button** – Opens the Crues Grand Montréal website in Safari.
 
 ## Requirements
 
@@ -54,12 +58,12 @@ iOS app for monitoring river forecast data for CEHQ station 043301, with a forec
 ## Setup
 
 1. Open `Riviere.xcodeproj` in Xcode.
-2. Select your development team under Signing & Capabilities for both the app and the **RiviereWidgetExtension** target.
-3. Ensure the App Group `group.ca.point.riviere` exists in your Apple Developer account (or create it) and is enabled for both targets.
-4. Build and run on a device or simulator.
+2. Select your development team under Signing & Capabilities.
+3. Build and run on a device or simulator.
 
 ## Data sources
 
-- Forecast chart: [forecast.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.png)
+- 30-day chart: [forecast_30d.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast_30d.png)
+- Forecast chart (1 year): [forecast.png](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.png)
 - Forecast JSON: [forecast.json](https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.json)
 - Current level: [CEHQ station 043301](https://www.cehq.gouv.qc.ca/suivihydro/fichier_donnees.asp?NoStation=043301)

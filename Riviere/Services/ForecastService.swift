@@ -12,6 +12,7 @@ final class ForecastService {
 
     private static let jsonURL = URL(string: "https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.json")!
     static let imageURL = URL(string: "https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast.png")!
+    static let image30DayURL = URL(string: "https://raw.githubusercontent.com/LaurentPointCa/riviere/refs/heads/master/docs/forecast_30d.png")!
     private static let currentLevelURL = URL(string: "https://www.cehq.gouv.qc.ca/suivihydro/fichier_donnees.asp?NoStation=043301")!
 
     func fetchForecast() async throws -> ForecastResponse {
