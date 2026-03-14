@@ -10,7 +10,7 @@ Application iOS pour surveiller les prévisions de la rivière à la station CEH
 - **Niveau d'eau actuel** – Niveau en temps réel récupéré depuis la station CEHQ 043301, affiché sous le graphique.
 - **Zone de danger** – Le seuil de danger de 22,5 m est indiqué sous le tableau de prévisions.
 - **Tableau de prévisions** – Données JSON affichées en tableau (jour, date, débit m³/s, niveau m).
-- **Bouton CEHQ** – Ouvre la station CEHQ 043301 dans Safari.
+- **Bouton CEHQ** – Ouvre les prévisions secteur Archipel sur le site CEHQ dans Safari.
 - **Bouton Carillon** – Ouvre la page de la jauge de Carillon sur rivièredesoutaouais.ca.
 - **Bouton Crues MTL** – Ouvre le site Crues Grand Montréal dans Safari.
 
@@ -46,7 +46,7 @@ iOS app for monitoring river forecast data for CEHQ station 043301, with a forec
 - **Current water level** – Live level fetched from CEHQ station 043301 and displayed below the chart.
 - **Danger zone** – The 22.5 m danger threshold is shown below the forecast table.
 - **Forecast table** – JSON data shown in a table (day, date, flow m³/s, level m).
-- **CEHQ button** – Opens CEHQ station 043301 in Safari.
+- **CEHQ button** – Opens the Archipel sector forecasts on the CEHQ website in Safari.
 - **Carillon button** – Opens the Carillon gauge page on rivièredesoutaouais.ca.
 - **Crues MTL button** – Opens the Crues Grand Montréal website in Safari.
 

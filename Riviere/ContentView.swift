@@ -9,6 +9,12 @@ struct ContentView: View {
     @StateObject private var viewModel = ForecastViewModel()
     @State private var orientation = UIDevice.current.orientation
 
+    private var appVersionString: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "Version \(version) (\(build))"
+    }
+
     var body: some View {
         GeometryReader { geometry in
             let isLandscape = geometry.size.width > geometry.size.height
@@ -134,8 +140,14 @@ struct ContentView: View {
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 10)
-                        .background(Color(.systemBackground))
+                        
+                        // Build version
+                        Text(appVersionString)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 8)
                     }
+                    .background(Color(.systemBackground))
                 }
             }
         }
@@ -205,7 +217,7 @@ struct ContentView: View {
 }
 
 struct CEHQButton: View {
-    private let url = URL(string: "https://www.cehq.gouv.qc.ca/suivihydro/graphique.asp?NoStation=043301")!
+    private let url = URL(string: "https://www.cehq.gouv.qc.ca/prevision/previsions.asp?secteur=Archipel")!
 
     var body: some View {
         Button(action: openCEHQ) {
