@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		432106012F9875200063F9DC /* WaterLevelReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432106002F9875200063F9DC /* WaterLevelReading.swift */; };
+		432106032F9875460063F9DC /* WaterLevelChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432106022F9875460063F9DC /* WaterLevelChartView.swift */; };
 		A1000001 /* RiviereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* RiviereApp.swift */; };
 		A1000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000002 /* ContentView.swift */; };
 		A1000003 /* ForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000003 /* ForecastResponse.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		432106002F9875200063F9DC /* WaterLevelReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterLevelReading.swift; sourceTree = "<group>"; };
+		432106022F9875460063F9DC /* WaterLevelChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterLevelChartView.swift; sourceTree = "<group>"; };
 		43E461712F5BDD9B00EC8087 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		43E461732F5BDD9B00EC8087 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		A2000001 /* RiviereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiviereApp.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				A2000003 /* ForecastResponse.swift */,
+				432106002F9875200063F9DC /* WaterLevelReading.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				A2000005 /* ZoomableImageView.swift */,
+				432106022F9875460063F9DC /* WaterLevelChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +131,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7000001 /* Build configuration list for PBXNativeTarget "Riviere" */;
 			buildPhases = (
+				431904DC2F610A49001E921E /* ShellScript */,
 				A6000003 /* Sources */,
 				A6000004 /* Resources */,
 				A6000002 /* Frameworks */,
@@ -179,12 +186,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		431904DC2F610A49001E921E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Only increment for Release builds (not Debug)\n#if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    buildNumber=$(xcrun agvtool what-version -terse)\n    buildNumber=$((buildNumber + 1))\n    xcrun agvtool new-version -all $buildNumber\n#fi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A6000003 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A1000001 /* RiviereApp.swift in Sources */,
+				432106012F9875200063F9DC /* WaterLevelReading.swift in Sources */,
+				432106032F9875460063F9DC /* WaterLevelChartView.swift in Sources */,
 				A1000002 /* ContentView.swift in Sources */,
 				A1000003 /* ForecastResponse.swift in Sources */,
 				A1000004 /* ForecastService.swift in Sources */,

@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct ContentView: View {
     @StateObject private var viewModel = ForecastViewModel()
@@ -28,6 +29,9 @@ struct ContentView: View {
                 VStack(spacing: 0) {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
+                            // 48-hour water level chart
+                            WaterLevelChartView(readings: viewModel.waterLevelReadings)
+                            
                             // Label for the 30-day forecast graph
                             Text("Données 30 derniers jours")
                                 .font(.headline)
@@ -52,25 +56,6 @@ struct ContentView: View {
                                     EmptyView()
                                 }
                             }
-
-                            // Current level display
-                            HStack {
-                                Text("Niveau actuel: ")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                                if let currentLevel = viewModel.currentLevel {
-                                    Text(String(format: "%.2f m", currentLevel))
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                } else {
-                                    Text("non-disponible")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
-                                        .italic()
-                                }
-                            }
-                            .padding(.horizontal)
-                            .padding(.top, 8)
 
                             if viewModel.isLoading, viewModel.forecast.isEmpty {
                                 HStack {
@@ -273,34 +258,39 @@ struct CruesMTLButton: View {
 @MainActor
 final class ForecastViewModel: ObservableObject {
     @Published var forecast: [ForecastDay] = []
-    @Published var currentLevel: Double?
+    @Published var waterLevelReadings: [WaterLevelReading] = []
     @Published var isLoading = false
     @Published var error: String?
 
     func load() async {
-        await refresh()
+        await fetchAll(forceRefreshHistory: false)
     }
 
     func refresh() async {
+        await fetchAll(forceRefreshHistory: true)
+    }
+
+    private func fetchAll(forceRefreshHistory: Bool) async {
         isLoading = true
         error = nil
+        
+        // Run fetches in parallel
+        async let forecastResult = ForecastService.shared.fetchForecast()
+        async let historyResult = fetchHistoryOrEmpty(forceRefresh: forceRefreshHistory)
+        
         do {
-            // Fetch forecast (required)
-            let response = try await ForecastService.shared.fetchForecast()
+            let response = try await forecastResult
             forecast = response.forecast
-            
-            // Fetch current level (optional - don't fail if it doesn't work)
-            do {
-                let level = try await ForecastService.shared.fetchCurrentLevel()
-                currentLevel = level
-            } catch {
-                // If fetching current level fails, just don't show it
-                currentLevel = nil
-            }
         } catch {
             self.error = error.localizedDescription
         }
+        
+        waterLevelReadings = await historyResult
         isLoading = false
+    }
+    
+    nonisolated private func fetchHistoryOrEmpty(forceRefresh: Bool) async -> [WaterLevelReading] {
+        (try? await ForecastService.shared.fetchWaterLevelHistory(forceRefresh: forceRefresh)) ?? []
     }
 }
 
